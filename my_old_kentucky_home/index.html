@@ -20,13 +20,16 @@
      mediaElement.play();
      var start = mediaElement.seekable.start(0);  // Returns the starting time (in seconds)
      console.log(start);
-     var end = mediaElement.seekable.end(0);    // Returns the ending time (in seconds)
-     console.log(end);
-    // var curr_time = mediaElement.currentTime = 15; // Seek to 122 seconds
+    // var end = mediaElement.seekable.end(0);    // Returns the ending time (in seconds)
+    // console.log(end);
+     var curr_time = mediaElement.currentTime = 15; // Seek to 122 seconds
     // console.log(curr_time);
     // var play_time = mediaElement.played.end(0);      // Returns the number of seconds the browser has played
     // console.log(play_time);
-     while ( mediaElement.end(0) < 2) {
+     
+//var obj = document.getElementById('music_video');
+//console.log(obj.currentTime);
+     while ( mediaElement.currentTime < 2) {
 	   console.log("it's working?");
      }
 
