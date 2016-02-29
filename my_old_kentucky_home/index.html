@@ -16,11 +16,13 @@
 <script>
   // Complete this section and create a CSS file named style.css
   var mediaElement = document.getElementById('music_video');
-  mediaElement.play();
-  mediaElement.seekable.start(0);  // Returns the starting time (in seconds)
-  mediaElement.seekable.end(0);    // Returns the ending time (in seconds)
-  mediaElement.currentTime = 122; // Seek to 122 seconds
-  mediaElement.played.end(0);      // Returns the number of seconds the browser has played
+  mediaElement.onloadeddata = function() {
+     mediaElement.play();
+     mediaElement.seekable.start(0);  // Returns the starting time (in seconds)
+     //mediaElement.seekable.end(0);    // Returns the ending time (in seconds)
+     //mediaElement.currentTime = 122; // Seek to 122 seconds
+     //mediaElement.played.end(0);      // Returns the number of seconds the browser has played
+  }
 </script>
 </body>
 </html>
