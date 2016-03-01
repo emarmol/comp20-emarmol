@@ -14,30 +14,13 @@
 <div id="lyrics"></div>
 
 <script>
-  var mediaElement = document.getElementById('music_video');
-  mediaElement.onloadeddata = function() {
-     //var start = mediaElement.seekable.start(0);  // Returns the starting time (in seconds)
-     //console.log(start);
-     var end = mediaElement.seekable.end(0);    // Returns the ending time (in seconds)
-     console.log(end);
-    // var curr_time = mediaElement.currentTime = 15; // Seek to 15 seconds
-    // console.log(curr_time);     
-/*  function modifyText() {
-     console.log("got here");
-     document.getElementById("lyrics").innerHTML = "The sun shines bright in My Old Kentucky Home,";
-  }
-    if ( document.getElementById('music_video').currentTime < 2000) {
-	   console.log("it's working?");
-           console.log(mediaElement.currentTime);
-	   mediaElement.addEventListener("load", modifyText, false);
-     }
+var mediaElement = document.getElementById('music_video');
+mediaElement.onloadeddata = function() {
 
-*/
+ mediaElement.addEventListener("timeupdate", checkTime, false);
 
-mediaElement.addEventListener("timeupdate", checkTime, false);
-
-function checkTime () {
- while( mediaElement.currentTime < 94 ) {
+ function checkTime () {
+  while( mediaElement.currentTime < 94 ) {
    if (mediaElement.currentTime < 8.4 && mediaElement.currentTime >= 0) {
        document.getElementById("lyrics").innerHTML = " ";
    }
@@ -80,10 +63,9 @@ function checkTime () {
    else if (mediaElement.currentTime > 83.5) {
        document.getElementById("lyrics").innerHTML = "For My Old Kentucky Home, far away";
    }
-
 break;
+  }
  }
-}
 
 }
 </script>
