@@ -59,7 +59,12 @@ function checkTime () {
    else if (mediaElement.currentTime < 49 && mediaElement.currentTime > 42.5) {
        document.getElementById("lyrics").innerHTML = "All merry, all happy and bright;";
    }
-
+   else if (mediaElement.currentTime < 55 && mediaElement.currentTime > 49.5) {
+       document.getElementById("lyrics").innerHTML = "By 'n' by hard times comes a knocking at the door,";
+   }
+   else if (mediaElement.currentTime < 63 && mediaElement.currentTime > 56) {
+       document.getElementById("lyrics").innerHTML = "Then My Old Kentucky Home, good night!";
+   }
 break;
  }
 }
