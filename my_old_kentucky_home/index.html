@@ -50,10 +50,15 @@ function checkTime () {
    else if (mediaElement.currentTime < 27 && mediaElement.currentTime > 22) {
        document.getElementById("lyrics").innerHTML = "The corn-top's ripe and the meadow's in the bloom";
    }
-   else if (mediaElement.currentTime < 35 && mediaElement.currentTime > 28) {
+   else if (mediaElement.currentTime < 35 && mediaElement.currentTime > 27.5) {
        document.getElementById("lyrics").innerHTML = "While the birds make music all the day.";
    }
-
+   else if (mediaElement.currentTime < 42 && mediaElement.currentTime > 35.5) {
+       document.getElementById("lyrics").innerHTML = "The young folks roll on the little cabin floor,";
+   }
+   else if (mediaElement.currentTime < 49 && mediaElement.currentTime > 42.5) {
+       document.getElementById("lyrics").innerHTML = "All merry, all happy and bright;";
+   }
 
 break;
  }
