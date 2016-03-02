@@ -6,7 +6,7 @@ h1 {
 
 img {
     height: 25px;
-    width:40px;
+    width:45px;
 }
 
 #lyrics {

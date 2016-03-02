@@ -61,7 +61,7 @@ mediaElement.onloadeddata = function() {
        document.getElementById("lyrics").innerHTML = "For My Old Kentucky Home";
    }
    else if (mediaElement.currentTime > 83.5) {
-       document.getElementById("lyrics").innerHTML = "<p>For My Old Kentucky Home, far away &nbsp <span><img src='finish_line.png' alt='finish line'</span></p>";
+       document.getElementById("lyrics").innerHTML = "<p>For My Old Kentucky Home, far away<span><img src='finish_line.png' alt='finish line'</span></p>";
    }
 break;
   }
