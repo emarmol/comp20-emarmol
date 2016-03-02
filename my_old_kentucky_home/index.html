@@ -14,6 +14,7 @@
 <div id="lyrics"></div>
 
 <script>
+
 var mediaElement = document.getElementById('music_video');
 mediaElement.onloadeddata = function() {
 
@@ -40,7 +41,7 @@ mediaElement.onloadeddata = function() {
        document.getElementById("lyrics").innerHTML = "The young folks roll on the little cabin floor,";
    }
    else if (mediaElement.currentTime < 49 && mediaElement.currentTime > 42.5) {
-       document.getElementById("lyrics").innerHTML = "<p>All merry, all happy and bright;<span><img src='horse.jpg' alt='horse'/></span></p>";
+       document.getElementById("lyrics").innerHTML = "<p>All merry, all happy and bright; &nbsp <span><img src='horse.jpg' alt='horse'/></span></p>";
    }
    else if (mediaElement.currentTime < 55 && mediaElement.currentTime > 49.5) {
        document.getElementById("lyrics").innerHTML = "By 'n' by hard times comes a knocking at the door,";
