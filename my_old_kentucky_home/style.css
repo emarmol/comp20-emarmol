@@ -2,6 +2,7 @@ h1 {
    font-size: 2em;
    font-weight: bold;
    text-align:center;
+   color:  #330000;
 }
 
 img {
@@ -9,8 +10,18 @@ img {
     width:40px;
 }
 
+body {
+     background-color:grey;
+}
+
 #lyrics {
-    height: 100px;
+    width:45%;
     font-size: 1.75em;
-    color:red;
+    color:#330000;
+    margin-left:25%;
+    background-color:white;
+}
+
+#music_video {
+    margin-left:25%;
 }
