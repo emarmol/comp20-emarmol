@@ -11,15 +11,17 @@ img {
 }
 
 body {
-     background-color:grey;
+     background-color:#999999;
 }
 
 #lyrics {
-    width:45%;
+    width:550px;
     font-size: 1.75em;
     color:#330000;
     margin-left:25%;
     background-color:white;
+    padding:10px;
+    border-radius:10px;
 }
 
 #music_video {
