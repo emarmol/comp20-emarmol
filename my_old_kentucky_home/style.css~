@@ -1,0 +1,27 @@
+h1 {
+   font-size: 2em;
+   font-weight: bold;
+   text-align:center;
+   color:  #330000;
+}
+
+img {
+    height: 25px;
+    width:40px;
+}
+
+body {
+     background-color:grey;
+}
+
+#lyrics {
+    width:45%;
+    font-size: 1.75em;
+    color:#330000;
+    margin-left:25%;
+    background-color:white;
+}
+
+#music_video {
+    margin-left:25%;
+}
