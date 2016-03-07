@@ -4,10 +4,12 @@ var myRequest = new XMLHttpRequest();
 var result = "";
 var raw;
 
+function parse() {
+
 myRequest.open("GET", "data.json", true);
 
 
-request.onreadystatechange = function() {
+myRequest.onreadystatechange = function () {
 
     // Step 3: Data is ready --there is a response!
     if (myRequest.readyState == 4) {
@@ -25,4 +27,6 @@ request.onreadystatechange = function() {
 };
 
 // Step 3: Fire off the request
-request.send(null); // null means no data nec to send
+myRequest.send(null); // null means no data nec to send
+
+}
