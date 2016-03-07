@@ -26,8 +26,8 @@ myRequest.onreadystatechange = function () {
 	data = myRequest.responseText;
 	console.log(data);
 	raw = JSON.parse(data);
-	elem = document.getElementById("message");
-	elem.innerHTML = "<p>Carmen Sandiego was last seen at " + loc["description"] + "</p>";
+	elem = document.getElementById("messages");
+	elem.innerHTML = "<p>Testing</p>"; //+ loc["description"] + "</p>";
     }
     else if (myRequest.readyState == 4 && myRequest.status != 200) {
 	// think 404 or 500
