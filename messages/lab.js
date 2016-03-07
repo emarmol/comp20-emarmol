@@ -25,9 +25,9 @@ myRequest.onreadystatechange = function () {
 	console.log("Got the data back!");
 	data = myRequest.responseText;
 	console.log(data);
-	raw = JSON.parse(data);
+	msg = JSON.parse(data);
 	elem = document.getElementById("messages");
-	elem.innerHTML = "<p>Testing</p>"; //+ loc["description"] + "</p>";
+	elem.innerHTML = "<p>Testing" + msg[0]["content"] + "</p>";
     }
     else if (myRequest.readyState == 4 && myRequest.status != 200) {
 	// think 404 or 500
