@@ -16,7 +16,7 @@ myRequest.onreadystatechange = function () {
 	console.log(data);
 	msg = JSON.parse(data);
 	elem = document.getElementById("messages");
-	elem.innerHTML = "<p>" + msg[0]["content"] + "&nbsp" + msg[0]["username"] + "</p>";
+	elem.innerHTML = "<p id='first'>" + msg[0]["content"] + "&nbsp" + msg[0]["username"] + "</p>" + "<br/>" + "<p id='second'>" + msg[1]["content"] + "&nbsp" + msg[1]["username"] + "</p>";
     }
     else if (myRequest.readyState == 4 && myRequest.status != 200) {
 	// think 404 or 500
