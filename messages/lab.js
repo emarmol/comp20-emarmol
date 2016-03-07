@@ -9,25 +9,14 @@ myRequest.open("GET", "data.json", true);
 
 myRequest.onreadystatechange = function () {
 
-    // Step 3: Data is ready --there is a response!
-    /*    if (myRequest.readyState == 4) {
-	result = "";
-	raw = myRequest.responseText;
-	myData = JSON.parse(raw);
-	msg = document.getElementById("messages");
-
-	result = myData["content"][0] + "&nbsp" + myData["username"][0];
-	elem.innerHTML = result;
-	}*/
-
-
+    // Step 3: Data is ready --there is a response
     if (myRequest.readyState == 4 && myRequest.status == 200) {
 	console.log("Got the data back!");
 	data = myRequest.responseText;
 	console.log(data);
 	msg = JSON.parse(data);
 	elem = document.getElementById("messages");
-	elem.innerHTML = "<p>Testing" + msg[0]["content"] + "</p>";
+	elem.innerHTML = "<p>" + msg[0]["content"] + "&nbsp" + msg[0]["username"] + "</p>";
     }
     else if (myRequest.readyState == 4 && myRequest.status != 200) {
 	// think 404 or 500
