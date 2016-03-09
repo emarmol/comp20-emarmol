@@ -11,19 +11,19 @@ myRequest.onreadystatechange = function () {
 
     // Step 3: Data is ready --there is a response
     if (myRequest.readyState == 4 && myRequest.status == 200) {
-	console.log("Got the data back!");
+	//console.log("Got the data back!");
 	data = myRequest.responseText;
-	console.log(data);
+	//console.log(data);
 	msg = JSON.parse(data);
 	elem = document.getElementById("messages");
-	elem.innerHTML = "<p id='first'>" + msg[0]["content"] + "&nbsp" + msg[0]["username"] + "</p>" + "<br/>" + "<p id='second'>" + msg[1]["content"] + "&nbsp" + msg[1]["username"] + "</p>";
+	elem.innerHTML = "<p id='first'>" + msg[0]["content"] + "&nbsp<span class='user'>" + msg[0]["username"] + "</span></p>" + "<br/>" + "<p id='second'>" + msg[1]["content"] + "&nbsp<span class='user'>" + msg[1]["username"] + "</span></p>";
     }
     else if (myRequest.readyState == 4 && myRequest.status != 200) {
 	// think 404 or 500
 	document.getElementById("message").innerHTML = "<p>Whoops, something went terribly wrongo</p>";
     }
     else {
-	console.log("In progress...");
+	//console.log("In progress...");
     }
 
 
