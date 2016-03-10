@@ -1,0 +1,17 @@
+/* Your CSS here... */
+
+p#first {
+  font-size: 1.5em;
+  color: blue;
+}
+
+p#second {
+ font-size: 1.5em;
+ color: red;
+}
+
+
+.user {
+ font-size:.6em;
+ color:green;
+}
