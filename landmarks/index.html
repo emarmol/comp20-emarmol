@@ -41,27 +41,14 @@
       }
 
       function renderMap(){
-/*        for (i=0; i<array.people.length; i++) {
-		personLat = array.people[i].lat;
-		personLng = array.people[i].lng;			 
-		person = new google.maps.LatLng(personLat,personLng);
-
-		personMarker = new google.maps.Marker({
-			position: person,
-			title: array.people[i].login
-		});	 
-		marker.setMap(map);			 
-		console.log("for statement:" + array.people[i].login);		 
-        }
-*/
         me = new google.maps.LatLng(myLat, myLng);
         // Update map and go there...
         map.panTo(me);
       
         // Create a marker
         marker = new google.maps.Marker({
-        position: me,
-        title: "Info goes here"
+          position: me,
+          title: "Info goes here"
         });
         marker.setMap(map);
       
@@ -75,14 +62,39 @@
                 personLat = array.people[i].lat;
                 personLng = array.people[i].lng;
                 person = new google.maps.LatLng(personLat,personLng);
-
+	    if(array.people[i].login != "JERRY_FRANKS") {
                 personMarker = new google.maps.Marker({
                         position: person,
-                        title: array.people[i].login
+                        title: array.people[i].login,
+			icon: {
+			    url:"personMarker.png",
+			    scaledSize: new google.maps.Size(22, 22)
+			}
                 });
                 personMarker.setMap(map);
-                console.log("for statement:" + array.people[i].login);
+		
+		google.maps.event.addListener(personMarker, 'click', function() {
+			infowindow.setContent(this.title);
+			infowindow.open(map, this);
+		});
+	    }
         }
+	for (j=0; j<array.landmarks.length; j++) {
+		landmarkLat = array.landmarks[j].geometry.coordinates[1];
+		landmarkLng = array.landmarks[j].geometry.coordinates[0];
+		landmark = new google.maps.LatLng(landmarkLat,landmarkLng);
+
+		landmarkMarker = new google.maps.Marker({
+			position:landmark,
+			title:array.landmarks[j].properties.Location_Name,
+			icon: {
+			   url:"landmark.png",
+			   scaledSize: new google.maps.Size(22,22)
+			}
+		});
+		landmarkMarker.setMap(map);
+		//google.maps.event.addListener(landmarkMarker, 'click'
+	}
       }
 
       <!--HTTP POST to herokuapp-->
