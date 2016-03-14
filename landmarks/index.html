@@ -4,17 +4,17 @@
     <title>Geolocation Map Example</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-    <link rel="stylesheet" href="geolocation_map_style.css" />
-    
+   <link rel="stylesheet" href="style.css" />    
     <script>
+<!--Get current location-->
       var myLat = 0;
       var myLng = 0;
       var request = new XMLHttpRequest();
       var me = new google.maps.LatLng(myLat, myLng);
       var myOptions = {
-      zoom: 13, // The larger the zoom number, the bigger the zoom
-      center: me,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+         zoom: 20, // The larger the zoom number, the bigger the zoom
+         center: me,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map;
       var marker;
@@ -31,10 +31,11 @@
             myLat = position.coords.latitude;
             myLng = position.coords.longitude;
             renderMap();
+            sendLoc(myLat, myLng);
           });
         }
         else {
-          alert("Geolocation is not supported by your web browser.  What a shame!");
+          alert("Geolocation is not supported by your web browser.");
         }
       }
 
@@ -46,7 +47,7 @@
         // Create a marker
         marker = new google.maps.Marker({
         position: me,
-        title: "Here I Am!"
+        title: "Info goes here"
         });
         marker.setMap(map);
       
@@ -56,10 +57,32 @@
           infowindow.open(map, marker);
         });
       }
+
+      <!--HTTP POST to herokuapp-->
+      function sendLoc(myLat, myLng) {
+      var http = new XMLHttpRequest();
+      var url = "https://defense-in-derpth.herokuapp.com/sendLocation";
+      var params = "login=JERRY_FRANKS&lat="+myLat+"&lng="+myLng;
+      http.open("POST", url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     // http.setRequestHeader("Content-length", params.length);
+     // http.setRequestHeader("Connection", "close");
+
+      http.onreadystatechange = function() { //Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+          data = http.responseText;
+          people = JSON.parse(data);
+          console.log(people);
+          console.log(http.responseText);
+        }
+      }
+      http.send(params);
+}
       </script>
     </head>
-  
   <body onload="init()">
     <div id="map_canvas"></div>
-    </body>
+  </body>
 </html>
