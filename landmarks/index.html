@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Geolocation Map Example</title>
+    <title>Landmarks</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
    <link rel="stylesheet" href="style.css" />    
     <script>
-<!--Get current location-->
+<!--Variables-->
       var array;
       var myLat = 0;
       var myLng = 0;
+      var sLat = 0;
+      var sLng = 0;
       var request = new XMLHttpRequest();
       var me = new google.maps.LatLng(myLat, myLng);
       var myOptions = {
-         zoom: 13, // The larger the zoom number, the bigger the zoom
+         zoom: 15, // The larger the zoom number, the bigger the zoom
          center: me,
          mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       var map;
       var marker;
       var infowindow = new google.maps.InfoWindow();
-      
+      var R = 3958.756; // miles
+<!--functions-->
       function init() {
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         getMyLocation();
@@ -32,7 +35,6 @@
             myLat = position.coords.latitude;
             myLng = position.coords.longitude;
             sendLoc(myLat, myLng);
-//            renderMap();
           });
         }
         else {
@@ -41,60 +43,118 @@
       }
 
       function renderMap(){
-        me = new google.maps.LatLng(myLat, myLng);
-        // Update map and go there...
-        map.panTo(me);
-      
-        // Create a marker
-        marker = new google.maps.Marker({
-          position: me,
-          title: "Info goes here"
-        });
-        marker.setMap(map);
-      
-        // Open info window on click of marker
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(marker.title);
-          infowindow.open(map, marker);
-        });
-
         for (i=0; i<array.people.length; i++) {
                 personLat = array.people[i].lat;
                 personLng = array.people[i].lng;
                 person = new google.maps.LatLng(personLat,personLng);
 	    if(array.people[i].login != "JERRY_FRANKS") {
-                personMarker = new google.maps.Marker({
-                        position: person,
-                        title: array.people[i].login,
-			icon: {
-			    url:"personMarker.png",
-			    scaledSize: new google.maps.Size(22, 22)
-			}
+       		/*CODE FROM: http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript*/
+		Number.prototype.toRad = function() {
+			return this * Math.PI / 180;
+		}
+		var x1 = personLat-myLat;
+		var dLat = x1.toRad();
+		var x2 = personLng-myLng;
+		var dLon = x2.toRad();
+		var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.cos(myLat.toRad()) * Math.cos(personLat.toRad()) *
+			Math.sin(dLon/2) * Math.sin(dLon/2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		var d = R * c;
+		personMarker = new google.maps.Marker({
+                     position: person,
+                     title: array.people[i].login + " " + d.toFixed(3) + " miles away from you.",
+		     icon: {
+			 url:"personMarker.png",
+			 scaledSize: new google.maps.Size(22, 22)
+		     }
                 });
-                personMarker.setMap(map);
-		
+                personMarker.setMap(map);		
 		google.maps.event.addListener(personMarker, 'click', function() {
 			infowindow.setContent(this.title);
 			infowindow.open(map, this);
 		});
 	    }
         }
+var min =0;
+var place = "";
+var dist,c2,b,d2Lon,y2,d2Lat,y1;
+var index=0;
 	for (j=0; j<array.landmarks.length; j++) {
 		landmarkLat = array.landmarks[j].geometry.coordinates[1];
 		landmarkLng = array.landmarks[j].geometry.coordinates[0];
 		landmark = new google.maps.LatLng(landmarkLat,landmarkLng);
 
+		/*CODE FROM: http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript*/
+                Number.prototype.toRad = function() {
+                        return this * Math.PI / 180;
+                }
+                y1 = landmarkLat-myLat;
+                d2Lat = y1.toRad();
+                y2 = landmarkLng-myLng;
+                d2Lon = y2.toRad();
+                b = Math.sin(d2Lat/2) * Math.sin(d2Lat/2) +
+                        Math.cos(myLat.toRad()) * Math.cos(landmarkLat.toRad()) *
+                        Math.sin(d2Lon/2) * Math.sin(d2Lon/2);
+                c2 = 2 * Math.atan2(Math.sqrt(b), Math.sqrt(1-b));
+                dist = R * c2;
+   		if (j==0) {min = dist;
+			index = j;
+			sLat= landmarkLat;
+			sLng = landmarkLng;}
+		else {
+			if (min > dist) {
+				min = dist;
+				index = j;
+				sLat = landmarkLat;
+				sLng = landmarkLng;
+			}
+		}
+
 		landmarkMarker = new google.maps.Marker({
 			position:landmark,
-			title:array.landmarks[j].properties.Location_Name,
+			title:array.landmarks[j].properties.Details,
 			icon: {
 			   url:"landmark.png",
 			   scaledSize: new google.maps.Size(22,22)
 			}
 		});
 		landmarkMarker.setMap(map);
-		//google.maps.event.addListener(landmarkMarker, 'click'
+		google.maps.event.addListener(landmarkMarker, 'click', function() {
+			infowindow.setContent(this.title);
+			infowindow.open(map,this);
+		});
 	}
+        me = new google.maps.LatLng(myLat, myLng);
+        // Update map and go there...
+        map.panTo(me);
+
+        // Create a marker
+        marker = new google.maps.Marker({
+          position: me,
+          title: "JERRY_FRANKS: closest Landmark is: " + min.toFixed(3) + " miles away. Landmark:  " + array.landmarks[index].properties.Location_Name,
+	  icon: {
+		url: "me.png",
+		scaledSize: new google.maps.Size(22,30)
+	  }
+        });
+        marker.setMap(map);
+	//Create Polyline
+	var closestL = new google.maps.Polyline({
+		path: [{lat: myLat, lng: myLng},{lat: sLat, lng: sLng}],
+		geodesic: true,
+		strokeColor: '#FF0000',
+		strokeOpacity: 1.0,
+		strokeWeight: 2
+	});
+
+	closestL.setMap(map);
+
+        // Open info window on click of marker
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(marker.title);
+          infowindow.open(map, marker);
+        });
       }
 
       <!--HTTP POST to herokuapp-->
@@ -106,16 +166,11 @@
 
       //Send the proper header information along with the request
       http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     // http.setRequestHeader("Content-length", params.length);
-     // http.setRequestHeader("Connection", "close");
 
       http.onreadystatechange = function() { //Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
           data = http.responseText;
           array = JSON.parse(data);
-          console.log(array);
-          console.log(array.people.length);
-          // console.log(http.responseText);
           renderMap();
         }
       }
