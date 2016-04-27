@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Security Assessment </title>
+</head>
+
+<body>
+<h1> Security Assessment of Historic Landmarks Server </h1>
+<p> Prepared by: Erika Marmol </p>
+
+<h2> Introduction </h2>
+<hr/>
+<p>This assessment inspects Jordan Nagy’s Assignment 3 - The Server for Historic Landmarks security vulnerabilities. The server for Historic Landmarks was written with the following guidelines: create a POST method to send a user’s location and username to be inserted into a database, a GET method for everyone who has checked into the system that returns a JSON array, and a GET method that renders an HTML page displaying a log of everyone who has checked. Given these guidelines, security wasn’t a factor, and thus the server is prone to various attacks if it were deployed for the public to use. This assessment outlines these vulnerabilities and suggestions for how to make the server stronger for future use.</p>
+<br/>
+<h2> Methodology </h2>
+<hr/>
+<p>I first used the black box method that was suggested to test what vulnerabilities would most likely happen if an outsider were to attack the website. I first downloaded the source code to run it locally on my computer with my local mongodb so I wouldn’t crash Jordan’s online live site. This method allowed me to find various security issues. I also used Postman to send data to the site, and the rest were found by further dissecting her code.</p>
+<br/>
+<h2>Abstract of Findings</h2>
+<p>I found the main vulnerabilities of this site to be with privacy issues for users, as well as incorrect data being accepted and displayed. The issue of privacy is significant because to get a larger audience, the site must be reliable and minimize it’s risk for data being leaked. Accepting incorrect data, while for this site can be seen as annoying at it’s minimum, it can cause larger problems for other site’s using the data and ruins the user experience on the site.</p>
+<br/>
+<h2>Issues Found</h2>
+<hr/>
+<ol>
+  <li> Cross Site Scripting
+    <ul>
+      <li>Location: GET / —>Checkins Page (root directory) is where it appears, the problem itself lies with POST /sendLocation </li>
+      <li>Severity: HIGH - Apart from allowing other machines/users to send annoying alert messages, if the data were to be used in another location/if this site relayed information that another program was using, being able to script messages as an input would be a problem for interpreting data. If the expected format is text, and an alert message, or an image appears the site is not reliable to relay data. Cross Site Scripting is also a problem because we could redirect this page to another similar looking site to extract all user information we desire as they are inputting it.<li>
+	<li>(image)</li>
+	<li>Resolution: This issue can be easily resolved by hardcoding any characters required for scripting with their ASCII equivalents e.g. < = "&lt"< /li>
+    </ul>
+</li>
+  <li> Displaying all users information </li>
+  <li> HTML Code Injection </li>
+</ol>
+</body>
+
+
+</html>
