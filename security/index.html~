@@ -9,15 +9,15 @@
 
 <h2> Introduction </h2>
 <hr/>
-<p>This assessment inspects Jordan Nagy's Assignment 3 - The Server for Historic Landmarks security vulnerabilities. The server for Historic Landmarks was written with the following guidelines: create a POST method to send a user’s location and username to be inserted into a database, a GET method for everyone who has checked into the system that returns a JSON array, and a GET method that renders an HTML page displaying a log of everyone who has checked. Given these guidelines, security wasn’t a factor, and thus the server is prone to various attacks if it were deployed for the public to use. This assessment outlines these vulnerabilities and suggestions for how to make the server stronger for future use.</p>
+<p>This assessment inspects Jordan Nagy's Assignment 3 - The Server for Historic Landmarks security vulnerabilities. The server for Historic Landmarks was written with the following guidelines: create a POST method to send a user's location and username to be inserted into a database, a GET method for everyone who has checked into the system that returns a JSON array, and a GET method that renders an HTML page displaying a log of everyone who has checked. Given these guidelines, security wasn't a factor, and thus the server is prone to various attacks if it were deployed for the public to use. This assessment outlines these vulnerabilities and suggestions for how to make the server stronger for future use.</p>
 <br/>
 <h2> Methodology </h2>
 <hr/>
-<p>I first used the black box method that was suggested to test what vulnerabilities would most likely happen if an outsider were to attack the website. I first downloaded the source code to run it locally on my computer with my local mongodb so I wouldn't crash Jordan's online live site. This method allowed me to find various security issues. I also used Postman to send data to the site, and the rest were found by further dissecting her code.</p>
+<p>I first used the black box method that was suggested to test what vulnerabilities would most likely happen if an outsider were to attack the website. I first downloaded the source code to run it locally on my computer with my local mongodb so I wouldn't crash Jordan's live site. This method allowed me to find various security issues. I also used Postman to send data to the site, and the rest were found by further dissecting her code.</p>
 <br/>
 <h2>Abstract of Findings</h2>
 <hr/>
-<p>I found the main vulnerabilities of this site to be with privacy issues for users, as well as incorrect data being accepted and displayed. The issue of privacy is significant because to get a larger audience, the site must be reliable and minimize it’s risk for data being leaked. Accepting incorrect data, while for this site can be seen as annoying at it’s minimum, it can cause larger problems for other site’s using the data and ruins the user experience on the site.</p>
+<p>I found the main vulnerabilities of this site to be with privacy issues for users, as well as incorrect data being accepted and displayed. The issue of privacy is significant because to get a larger audience, the site must be reliable and minimize its risk for data being leaked. Accepting incorrect data, while for this site can be seen as annoying at its minimum, it can cause larger problems for other site's using the data and ruins the user experience on the site.</p>
 <br/>
 <h2>Issues Found</h2>
 <hr/>
@@ -34,15 +34,15 @@
   <li> <b>Displaying all users information</b>
     <ul>
       <li>Location: GET /checkins.json</li>
-      <li>Severity: HIGH - This is a privacy issue because upon putting $ne in the query string, all user information including their lat and lang info was displayed on the checkins.json page. For this assignment although we display everyone who has checked in on the home page, it’s not as big of an issue, but if this database were to have sensitive information, privacy would be a huge issue. Anyone would be able to go to /checkins.json and view everyone’s information who has been inserted into the database. </li>
+      <li>Severity: HIGH - This is a privacy issue because upon putting $ne in the query string, all user information including their lat and lang info was displayed on the checkins.json page. For this assignment although we display everyone who has checked in on the home page, it's not as big of an issue, but if this database were to have sensitive information, privacy would be a huge issue. Anyone would be able to go to /checkins.json and view everyone's information who has been inserted into the database. </li>
       <li>Image of displaying all users in the database: <br/> <img src="Screen Shot 2016-04-26 at 10.34.40 PM.png"/></li>
-      <li> Resolution: This issue can be resolved by adding more preventative measures, one possible method would be to use findOne. Using findOne instead of find would run into the issue of returning more than one user’s login information. Another possibility would be to check the query prior to displaying it on the page as a son format. You can create a loop that compares the login’s of each element and makes sure they’re all the same. If there are two different user’s login information, then you can send back an error message to the checkins.json page.</li>
+      <li> Resolution: This issue can be resolved by adding more preventative measures, one possible method would be to use findOne. Using findOne instead of find would run into the issue of returning more than one users login information. Another possibility would be to check the query prior to displaying it on the page as a json format. You can create a loop that compares the logins of each element and makes sure they're all the same. If there are two different users login information, then you can send back an error message to the checkins.json page.</li>
     </ul>
 <br/>
   </li>
   <li> <b>HTML Code Injection</b>
     <ul>
-      <li>Location: GET / —>Checkins Page (root directory) is where it appears, the problem itself lies with POST /sendLocation</li>
+      <li>Location: GET / - Checkins Page (root directory) is where it appears, the problem itself lies with POST /sendLocation</li>
 	<li>Severity: HIGH - Similar to number 1, this issue allows any other machine/person to inject videos and images as data without being checked. This is a problem for future use of this data as explained above.</li>
 	<li>Image of HTML Code Injection: <br/> <img src="Screen Shot 2016-04-26 at 11.05.55 PM.png"/></li>
 	<li>This issue can be revolved similarly to the cross site scripting issue. We can replace any < > tags with the ACII equivalents. We can also prevent users from inputting login names larger than a certain character amount.</li>
@@ -52,6 +52,6 @@
 <br/>
 <h2>Conclusion</h2>
 <hr/>
-<p>This site has a good foundation set for checkin user input - i.e. the if statements for login = ‘’, or isNaN(lat), etc. These checks can be further improved by checking for commonly used scripting tags - < > and replacing them with their equivalents. The /checkins.json should also be formatted to check is the users logins are all the same before displaying so the $ne technique cannot be used.</p>
+<p>This site has a good foundation set for checkin user input - i.e. the if statements for login = '', or isNaN(lat), etc. These checks can be further improved by checking for commonly used scripting tags - < > and replacing them with their equivalents. The /checkins.json should also be formatted to check is the users logins are all the same before displaying so the $ne technique cannot be used.</p>
 </body>
 </html>

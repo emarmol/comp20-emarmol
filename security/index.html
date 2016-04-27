@@ -25,8 +25,8 @@
   <li> <b>Cross Site Scripting</b>
     <ul>
       <li>Location: GET / - Checkins Page (root directory) is where it appears, the problem itself lies with POST /sendLocation </li>
-      <li>Severity: HIGH - Apart from allowing other machines/users to send annoying alert messages, if the data were to be used in another location/if this site relayed information that another program was using, being able to script messages as an input would be a problem for interpreting data. If the expected format is text, and an alert message, or an image appears the site is not reliable to relay data. Cross Site Scripting is also a problem because we could redirect this page to another similar looking site to extract all user information we desire as they are inputting it.<li>
-	<li>Image of the cross site scripting alerts:<br/> <img src="Screen Shot 2016-04-26 at 10.00.30 PM.png"/></li>
+      <li>Severity: HIGH - Apart from allowing other machines/users to send annoying alert messages, if the data were to be used in another location/if this site relayed information that another program was using, being able to script messages as an input would be a problem for interpreting data. If the expected format is text, and an alert message, or an image appears the site is not reliable to relay data. Cross Site Scripting is also a problem because we could redirect this page to another similar looking site to extract all user information we desire as they are inputting it.</li>
+	<li>I found this vulnerability by simply injecting a script in the post. The script injected is as follows: <br/><code>alert('cross site scripting');</code><br/>Image of the cross site scripting alerts:<br/> <img src="Screen Shot 2016-04-26 at 10.00.30 PM.png"/></li>
 	<li>Resolution: This issue can be easily resolved by hardcoding any characters required for scripting with their ASCII equivalents e.g. < = "&lt"< /li>
     </ul>
 <br/>
@@ -35,8 +35,11 @@
     <ul>
       <li>Location: GET /checkins.json</li>
       <li>Severity: HIGH - This is a privacy issue because upon putting $ne in the query string, all user information including their lat and lang info was displayed on the checkins.json page. For this assignment although we display everyone who has checked in on the home page, it's not as big of an issue, but if this database were to have sensitive information, privacy would be a huge issue. Anyone would be able to go to /checkins.json and view everyone's information who has been inserted into the database. </li>
-      <li>Image of displaying all users in the database: <br/> <img src="Screen Shot 2016-04-26 at 10.34.40 PM.png"/></li>
-      <li> Resolution: This issue can be resolved by adding more preventative measures, one possible method would be to use findOne. Using findOne instead of find would run into the issue of returning more than one users login information. Another possibility would be to check the query prior to displaying it on the page as a json format. You can create a loop that compares the logins of each element and makes sure they're all the same. If there are two different users login information, then you can send back an error message to the checkins.json page.</li>
+      <li>I found this vulnerability by typing $ne after ?login. Image of displaying all users in the database: <br/> <img src="Screen Shot 2016-04-26 at 10.34.40 PM.png"/></li>
+      <li> Resolution: This issue can be resolved by adding more preventative measures, one possible method would be to use findOne. Using findOne instead of find would run into the issue of returning more than one users login information. Another possibility would be to check the query prior to displaying it on the page as a json format. You can create a loop that compares the logins of each element and makes sure they're all the same. If there are two different users login information, then you can send back an error message to the checkins.json page.
+<br/><p>An example of a simply for loop that can be written is show below. *Note: the variable names used in the for loop are not the correct format, but the general idea remains te same.<br/>
+	<code>for (int i=0; i < checkins.length(); i++) {if (checkins.login[i] != login) {return("error"); }</code>
+      </li>
     </ul>
 <br/>
   </li>
@@ -44,7 +47,7 @@
     <ul>
       <li>Location: GET / - Checkins Page (root directory) is where it appears, the problem itself lies with POST /sendLocation</li>
 	<li>Severity: HIGH - Similar to number 1, this issue allows any other machine/person to inject videos and images as data without being checked. This is a problem for future use of this data as explained above.</li>
-	<li>Image of HTML Code Injection: <br/> <img src="Screen Shot 2016-04-26 at 11.05.55 PM.png"/></li>
+	<li>I found this vulnerability by inputting the following HTML: <code>img src='url' </code> <br/>Image of HTML Code Injection: <br/> <img src="Screen Shot 2016-04-26 at 11.05.55 PM.png"/></li>
 	<li>This issue can be revolved similarly to the cross site scripting issue. We can replace any < > tags with the ACII equivalents. We can also prevent users from inputting login names larger than a certain character amount.</li>
     </ul>
   </li>
